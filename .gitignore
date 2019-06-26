@@ -2,6 +2,8 @@
 app/test/*
 !app/test/.gitkeep
 
+db/data/*
+!db/data/.gitkeep
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Laravel template
