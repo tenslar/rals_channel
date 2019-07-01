@@ -33,6 +33,9 @@ WORKDIR /home/$appName
 #  && php composer install \
 #  && php artisan key:gen
 
+HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=1 \
+  CMD php artisan --version || exit 1
+
 # ハマりポイント２：環境変数はENTRYPOINTやCMDには渡せない
 ENTRYPOINT ["php", "artisan", "serve", "--host", "0.0.0.0"]
 CMD []
