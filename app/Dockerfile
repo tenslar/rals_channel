@@ -1,5 +1,8 @@
 FROM alpine:3.10.0
 
+LABEL maintainer="tensler906 / (Twitter: @tensler906)" \
+  description="Image to run simply Laravel application."
+
 # ハマりポイント１：Laravelが必須とするext以外にもいろいろ足りてない
 # Laravelに必要なPHP及びextensionパッケージインストール
 RUN apk --update --no-cache add \ 
@@ -26,8 +29,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer
 
-ENV appName="test"
-WORKDIR /home/$appName
+WORKDIR /var/www/html
 
 #RUN composer create-project --prefer-dist laravel/laravel $appName \
 #  && php composer install \
@@ -35,7 +37,3 @@ WORKDIR /home/$appName
 
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=1 \
   CMD php artisan --version || exit 1
-
-# ハマりポイント２：環境変数はENTRYPOINTやCMDには渡せない
-ENTRYPOINT ["php", "artisan", "serve", "--host", "0.0.0.0"]
-CMD []

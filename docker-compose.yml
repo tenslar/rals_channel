@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  app:
+    build:
+      "./app"
+    volumes:
+      - "./app/test:/var/www/html"
+    networks:
+      rals_channel:
+        ipv4_address: "172.16.238.20"
+
+    env_file:
+      - "./env/app_env"
+    ports:
+      - "55544:8000"
+    depends_on:
+      - db
+    command: ["php", "artisan", "serve", "--host", "0.0.0.0"]
+    logging:
+      driver: "json-file" # defaults if not specified
+      options:
+        max-size: "10m"
+        max-file: "3"
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./db/data:/var/lib/mysql"
+    networks:
+      rals_channel:
+        ipv4_address: "172.16.238.10"
+        aliases:
+          - database
+          - mysql
+    env_file:
+      - "./env/db_env"
+    ports:
+      - "55545:3306"
+    logging:
+      driver: "json-file" # defaults if not specified
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  rals_channel:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.238.0/24"
