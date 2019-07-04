@@ -1,6 +1,6 @@
 ### My profile
-app/test/*
-!app/test/.gitkeep
+app/laravel/*
+!app/laravel/.gitkeep
 
 db/data/*
 !db/data/.gitkeep
