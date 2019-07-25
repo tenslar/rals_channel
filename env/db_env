@@ -1,4 +1,4 @@
 MYSQL_ROOT_PASSWORD=password
-MYSQL_DATABASE=rals_channel
 MYSQL_USER=rals_channel
 MYSQL_PASSWORD=password
+TIMEZONE=Asia/Tokyo

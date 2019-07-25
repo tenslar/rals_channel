@@ -1,0 +1,2 @@
+CREATE DATABASE rals_channel CHARACTER SET utf8mb4;
+CREATE DATABASE rals_channel_testing CHARACTER SET utf8mb4;

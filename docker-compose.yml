@@ -25,6 +25,8 @@ services:
     image: mysql:5.7
     volumes:
       - "./db/data:/var/lib/mysql:cached"
+      - "./db/initdb.d:/docker-entrypoint-initdb.d"
+      - "./db/my.cnf:/etc/mysql/conf.d/my.cnf"
     networks:
       rals_channel:
         ipv4_address: "172.16.238.10"
@@ -40,13 +42,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-
-  composer:
-    build:
-      "./composer"
-    volumes:
-      - "./app/laravel:/var/www/html"
-    command: ["composer", "install"]
 
 networks:
   rals_channel:
